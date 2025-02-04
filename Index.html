@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi San Valentín</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      background-image: url('https://i.pinimg.com/236x/c4/5a/de/c45ade62dac9eff053edb0f89f4babe7.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    .overlay {
+      background-color: rgba(255, 255, 255, 0.7);
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .top-image {
+      max-width: 200px;
+      margin: 20px auto;
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1;
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: #ff4d6d;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    button {
+      font-size: 1.2rem;
+      padding: 10px 20px;
+      margin: 10px;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    #yesButton {
+      background-color: #ff7f9c;
+      color: white;
+    }
+
+    #noButton {
+      background-color: #ff4d6d;
+      color: white;
+      transition: all 0.3s ease;
+    }
+
+    #response {
+      display: none;
+      margin-top: 20px;
+    }
+
+    #response p {
+      font-size: 1.5rem;
+      color: #ff4d6d;
+      font-weight: bold;
+    }
+
+    .snow {
+      position: fixed;
+      top: -20px;
+      font-size: 20px;
+      animation: snowFall linear infinite;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    @keyframes snowFall {
+      0% { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(100vh) rotate(360deg); }
+    }
+
+    .heart {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      background-image: url('https://i.imgur.com/6X3ZvzR.gif');
+      background-size: cover;
+      animation: float 5s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .balloon {
+      position: absolute;
+      width: 100px;
+      height: 150px;
+      background-color: #f1e3e6;
+      border-radius: 50%;
+      bottom: -150px;
+      animation: rise 8s linear infinite;
+    }
+
+    @keyframes rise {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-120vh); opacity: 0; }
+    }
+
+    @media (max-width: 768px) {
+      h1 { font-size: 1.5rem; }
+      button { font-size: 1rem; }
+      .top-image { max-width: 150px; }
+    }
+  </style>
+</head>
+<body>
+  <img src="https://i.pinimg.com/236x/c3/9d/f3/c39df373284d6e5c4160fd9177a87531.jpg" 
+       class="top-image img-fluid" 
+       alt="Decoración superior"
+       id="topImage">
+
+  <div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="overlay">
+      <h1>¿Quieres ser mi San Valentín?</h1>
+      <div class="text-center">
+        <button id="yesButton" class="btn">Sí</button>
+        <button id="noButton" class="btn">No</button>
+      </div>
+      <div id="response" class="text-center">
+        <p>¡Sabía que dirías que sí! ❤️</p>
+        <img src="https://i.pinimg.com/originals/d9/11/a6/d911a60fbaef775210de355e75b10c25.gif" 
+             class="img-fluid" 
+             alt="Corazones animados">
+      </div>
+    </div>
+  </div>
+
+  <!-- Elementos decorativos -->
+  <div class="heart" style="left: 10%; top: 20%;"></div>
+  <div class="heart" style="left: 30%; top: 50%;"></div>
+  <div class="heart" style="left: 60%; top: 30%;"></div>
+  <div class="heart" style="left: 80%; top: 70%;"></div>
+
+  <div class="balloon" style="left: 15%; background-color: #ff4d6d;"></div>
+  <div class="balloon" style="left: 45%; background-color: #ff7f9c;"></div>
+  <div class="balloon" style="left: 75%; background-color: #ffb3c1;"></div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const yesButton = document.getElementById('yesButton');
+    const noButton = document.getElementById('noButton');
+    const response = document.getElementById('response');
+    const topImage = document.getElementById('topImage');
+
+    function crearNieve() {
+      const container = document.body;
+      const emojis = ['🥰'];
+      
+      for (let i = 0; i < 50; i++) {
+        const snow = document.createElement('div');
+        snow.className = 'snow';
+        snow.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        snow.style.left = Math.random() * 100 + 'vw';
+        snow.style.animationDuration = Math.random() * 3 + 2 + 's';
+        snow.style.animationDelay = Math.random() * 5 + 's';
+        snow.style.fontSize = Math.random() * 20 + 10 + 'px';
+        container.appendChild(snow);
+      }
+    }
+
+    noButton.addEventListener('click', () => {
+      const randomX = Math.random() * (window.innerWidth - 100);
+      const randomY = Math.random() * (window.innerHeight - 50);
+      
+      noButton.style.position = 'absolute';
+      noButton.style.left = `${randomX}px`;
+      noButton.style.top = `${randomY}px`;
+      
+      yesButton.style.fontSize = `${parseFloat(getComputedStyle(yesButton).fontSize) + 2}px`;
+      yesButton.style.padding = `${parseFloat(getComputedStyle(yesButton).paddingTop) + 2}px ${parseFloat(getComputedStyle(yesButton).paddingRight) + 4}px`;
+    });
+
+    yesButton.addEventListener('click', () => {
+      // Ocultar elementos
+      document.querySelector('h1').style.display = 'none';
+      yesButton.style.display = 'none';
+      noButton.style.display = 'none';
+      topImage.style.display = 'none';
+      
+      // Mostrar respuesta
+      response.style.display = 'block';
+      
+      // Crear animación de nieve
+      crearNieve();
+    });
+  </script>
+</body>
+</html>
